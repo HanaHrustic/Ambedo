@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Door")
                 {
-                    Debug.Log("Hit");
                     hit.transform.gameObject.GetComponent<Animator>().Play("glass_door_open", 0, 0.0f);
                 }
             }
