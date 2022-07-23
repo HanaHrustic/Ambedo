@@ -38,71 +38,19 @@ public class PlayerController : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
         characterController.Move(moveDirection * Time.deltaTime);
 
-        /*if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
             {
-                if (hit.transform.gameObject.tag == "Enemy")
+                if (hit.transform.gameObject.tag == "Door")
                 {
-                    hit.transform.gameObject.GetComponent<EnemyHealth>().TakeDamage();
-                    if(enemiesKilled == 3)
-                    {
-                        foreach (Transform child in spiderWall.transform)
-                        {
-                            child.GetComponent<MeshRenderer>().enabled = false;
-                            child.GetComponent<MeshCollider>().enabled = false;
-                        }
-
-                        if (Key != null)
-                        {
-                            foreach (Transform child in Key.transform)
-                            {
-                                child.GetComponent<MeshRenderer>().enabled = true;
-                                child.GetComponent<BoxCollider>().enabled = true;
-                            }
-                        }
-
-
-                    }
-                    if (enemiesKilled == 4)
-                    {
-                        foreach (Transform child in monsterWall.transform)
-                        {
-                            child.GetComponent<MeshRenderer>().enabled = false;
-                            child.GetComponent<MeshCollider>().enabled = false;
-                        }
-
-                        if (Key2 != null)
-                        {
-                            foreach (Transform child in Key2.transform)
-                            {
-                                child.GetComponent<MeshRenderer>().enabled = true;
-                                child.GetComponent<BoxCollider>().enabled = true;
-                            }
-                        }
-                    }
-                    if (enemiesKilled == 5)
-                    {
-                        foreach (Transform child in lastWall.transform)
-                        {
-                            child.GetComponent<MeshRenderer>().enabled = false;
-                            child.GetComponent<MeshCollider>().enabled = false;
-                        }
-
-                        if (Key3 != null)
-                        {
-                            foreach (Transform child in Key3.transform)
-                            {
-                                child.GetComponent<MeshRenderer>().enabled = true;
-                                child.GetComponent<BoxCollider>().enabled = true;
-                            }
-                        }
-                    }
+                    Debug.Log("Hit");
+                    hit.transform.gameObject.GetComponent<Animator>().Play("glass_door_open", 0, 0.0f);
                 }
             }
-        }*/
+        }
     }
 }
