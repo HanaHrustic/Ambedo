@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "TriggerForCube")
         {
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(Timer);
                 Cube2DDown.GetComponent<SpriteRenderer>().enabled = false;
                 Cube2DUp.GetComponent<SpriteRenderer>().enabled = false;
-                Cube.GetComponent<MeshRenderer>().enabled = true;
+                Cube.SetActive(true);
             }
             else
             {
