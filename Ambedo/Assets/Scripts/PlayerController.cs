@@ -6,13 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
 
-    public float speed = 6.0f;
-    public float jumpSpeed = 8.0f;
-    public float gravity = 20.0f;
-    public Camera cam;
-    
-
-    public static int KeyCount = 0;
+    public float Speed = 6.0f;
+    public float JumpSpeed = 8.0f;
+    public float Gravity = 20.0f;
+    public Camera Cam;
+    public GameObject Cube;
+    public GameObject Cube2DUp;
+    public GameObject Cube2DDown;
+    int Timer = 0;
 
 
     private Vector3 moveDirection = Vector3.zero;
@@ -27,15 +28,15 @@ public class PlayerController : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
-            moveDirection = cam.transform.right * Input.GetAxis("Horizontal") + cam.transform.forward * Input.GetAxis("Vertical");
-            moveDirection *= speed;
+            moveDirection = Cam.transform.right * Input.GetAxis("Horizontal") + Cam.transform.forward * Input.GetAxis("Vertical");
+            moveDirection *= Speed;
 
             if (Input.GetButton("Jump"))
             {
-                moveDirection.y = jumpSpeed;
+                moveDirection.y = JumpSpeed;
             }
         }
-        moveDirection.y -= gravity * Time.deltaTime;
+        moveDirection.y -= Gravity * Time.deltaTime;
         characterController.Move(moveDirection * Time.deltaTime);
 
         if (Input.GetMouseButtonDown(0))
@@ -49,6 +50,25 @@ public class PlayerController : MonoBehaviour
                 {
                     hit.transform.gameObject.GetComponent<Animator>().Play("glass_door_open", 0, 0.0f);
                 }
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "TriggerForCube")
+        {
+            Timer++;
+            if (Timer >= 100)
+            {
+                Debug.Log(Timer);
+                Cube2DDown.GetComponent<SpriteRenderer>().enabled = false;
+                Cube2DUp.GetComponent<SpriteRenderer>().enabled = false;
+                Cube.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                Debug.Log(Timer);
             }
         }
     }
