@@ -28,39 +28,26 @@ public class TargetController : MonoBehaviour
 
 	void HandleInput()
 	{
-		// Check for left mouse click
 		if (Input.GetMouseButtonDown(0))
 		{
-			// If we do not currently have a target
 			if (target == null)
 			{
-				// Fire a raycast with the layer mask that only hits potential targets
 				RaycastHit hit;
 				if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, targetMask))
 				{
-					// Set our target variable to be the Transform object we hit with our raycast
-					target = hit.transform;
-
-					// Disable physics for the object
-					target.GetComponent<Rigidbody>().isKinematic = true;
-
-					// Calculate the distance between the camera and the object
-					originalDistance = Vector3.Distance(transform.position, target.position);
-
-					// Save the original scale of the object into our originalScale Vector3 variabble
-					originalScale = target.localScale.x;
-
-					// Set our target scale to be the same as the original for the time being
-					targetScale = target.localScale;
+					if(hit.transform.gameObject.tag == "Resizable")
+                    {
+						target = hit.transform;
+						target.GetComponent<Rigidbody>().isKinematic = true;
+						originalDistance = Vector3.Distance(transform.position, target.position);
+						originalScale = target.localScale.x;
+						targetScale = target.localScale;
+					}
 				}
 			}
-			// If we DO have a target
 			else
 			{
-				// Reactivate physics for the target object
 				target.GetComponent<Rigidbody>().isKinematic = false;
-
-				// Set our target variable to null
 				target = null;
 			}
 		}
@@ -68,34 +55,17 @@ public class TargetController : MonoBehaviour
 
 	void ResizeTarget()
 	{
-		// If our target is null
 		if (target == null)
 		{
-			// Return from this method, nothing to do here
 			return;
 		}
-
-		// Cast a ray forward from the camera position, ignore the layer that is used to acquire targets
-		// so we don't hit the attached target with our ray
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, ignoreTargetMask))
 		{
 			target.position = hit.point - transform.forward * offsetFactor * 2 * targetScale.x;
-			// Set the new position of the target by getting the hit point and moving it back a bit
-			// depending on the scale and offset factor
-
-
-			// Calculate the current distance between the camera and the target object
 			float currentDistance = Vector3.Distance(transform.position, target.position);
-
-			// Calculate the ratio between the current distance and the original distance
 			float s = currentDistance / originalDistance;
-
-			// Set the scale Vector3 variable to be the ratio of the distances
 			targetScale.x = targetScale.y = targetScale.z = s;
-
-			// Set the scale for the target objectm, multiplied by the original scale
-			
 			target.localScale = targetScale * originalScale;
 			
 		}

@@ -46,7 +46,11 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
             {
-                if (hit.transform.gameObject.tag == "Door")
+                if (hit.transform.gameObject.tag == "Door" && !hit.transform.gameObject.GetComponent<DoorController>())
+                {
+                    hit.transform.gameObject.GetComponent<Animator>().Play("glass_door_open", 0, 0.0f);
+                }
+                else if (hit.transform.gameObject.tag == "Door" && hit.transform.gameObject.GetComponent<DoorController>().canOpen)
                 {
                     hit.transform.gameObject.GetComponent<Animator>().Play("glass_door_open", 0, 0.0f);
                 }

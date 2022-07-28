@@ -7,6 +7,7 @@ TagManager:
   - Door
   - TriggerForCube
   - Pickable
+  - Resizable
   layers:
   - Default
   - TransparentFX

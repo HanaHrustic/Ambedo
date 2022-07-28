@@ -19,7 +19,10 @@ public class PickupController : MonoBehaviour
                 RaycastHit hit;
                 if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
                 {
-                    PickupObject(hit.transform.gameObject);
+                    if(hit.transform.gameObject.tag == "Pickable")
+                    {
+                        PickupObject(hit.transform.gameObject);
+                    }
                 }
             }
             else
@@ -38,8 +41,6 @@ public class PickupController : MonoBehaviour
         if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
         {
             heldObj.transform.position = holdArea.position;
-           // Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
-           // heldObjRB.AddForce(moveDirection * pickupForce);
         }
     }
 
