@@ -29,6 +29,16 @@ public class PlayerController : MonoBehaviour
         if (characterController.isGrounded)
         {
             moveDirection = Cam.transform.right * Input.GetAxis("Horizontal") + Cam.transform.forward * Input.GetAxis("Vertical");
+            
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Speed = 12.0f;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Speed = 6.0f;
+            }
+
             moveDirection *= Speed;
 
             if (Input.GetButton("Jump"))
