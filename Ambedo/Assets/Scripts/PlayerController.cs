@@ -75,14 +75,9 @@ public class PlayerController : MonoBehaviour
             Timer++;
             if (Timer >= 100)
             {
-                Debug.Log(Timer);
                 Cube2DDown.GetComponent<SpriteRenderer>().enabled = false;
                 Cube2DUp.GetComponent<SpriteRenderer>().enabled = false;
                 Cube.SetActive(true);
-            }
-            else
-            {
-                Debug.Log(Timer);
             }
         }
     }

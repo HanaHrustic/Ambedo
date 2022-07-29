@@ -8,6 +8,7 @@ TagManager:
   - TriggerForCube
   - Pickable
   - Resizable
+  - TriggerForWall
   layers:
   - Default
   - TransparentFX
